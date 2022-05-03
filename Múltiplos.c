@@ -3,29 +3,31 @@
 #include <math.h>
 #include <stdlib.h>
 
-void multiplos(int n, int a, int b)
+void multiplos(int old_n, int a, int b, int i)
 {
-	n = n + n;
+	int temp;
 
-	if (a <= n && b <= n)
+	temp = old_n * i;
+
+	if (temp > a && temp > b)
 	{
 		return;
 	}
 
-	printf("%d\n", n);
-	multiplos(n, a, b);
+	printf("%d\n", temp);
+	multiplos(old_n, a, b, i + 1);
 }
 
 int main()
 {
-	int n, a, b, novo_n;
+	int n, a, b;
 
 	scanf("%d\n%d\n%d", &n, &a, &b);
 
 	if (n > a && n > b)
 		printf("INEXISTENTE\n");
 
-	multiplos(n, a, b);
+	multiplos(n, a, b, 2);
 
 	return 0;
 }
