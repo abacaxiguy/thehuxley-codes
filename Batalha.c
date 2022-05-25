@@ -12,19 +12,21 @@
 
 // clodes see if him
 
-int batalha(int v1, int v2, int d1, int d2)
+int batalha(double rodadas, int d1, int v2, int aumenta_dano)
 {
-	if (d1 == v2) // if he dies before
-		return CLODES;
+	// se o clodes ver que da pra matar ele com o restante dos ataques antes dele morrer, ele começa a atacar, se n, ele só tenta aumentar seu poder
 
-	d1 += 50;
+	// if vida_BEZALIEL / dano_CLODES >= rodadas_restantes, ele ganhou
 
-	v1 -= d2;
-
-	if (v1 <= 0)
+	// entao teremos rodadas
+	// pq?, pq bezaliel smp vai ter um ataque fixo, entao dá pra separar as rodadas = vida_CLODES / dano_BEZALIEL
+	if (aumenta_dano == rodadas)
 		return BEZALIEL;
 
-	batalha(v1, v2, d1, d2);
+	if ((rodadas - aumenta_dano) * (50 * aumenta_dano + d1) >= v2)
+		return CLODES;
+
+	batalha(rodadas, d1, v2, aumenta_dano + 1);
 }
 
 void ler(int n)
@@ -37,7 +39,9 @@ void ler(int n)
 
 	scanf("%d %d %d %d", &v1, &v2, &d1, &d2);
 
-	if (batalha(v1, v2, d1, d2))
+	double rodadas_ate_clodes_morrer = ceil(v1 / d2);
+
+	if (batalha(rodadas_ate_clodes_morrer, d1, v2, 0))
 		printf("Clodes\n");
 	else
 		printf("Bezaliel\n");
