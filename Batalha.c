@@ -39,7 +39,7 @@ void ler(int n)
 
 	scanf("%d %d %d %d", &v1, &v2, &d1, &d2);
 
-	double rodadas_ate_clodes_morrer = ceil(v1 / d2);
+	double rodadas_ate_clodes_morrer = ceil((double)v1 / d2);
 
 	if (batalha(rodadas_ate_clodes_morrer, d1, v2, 0))
 		printf("Clodes\n");
