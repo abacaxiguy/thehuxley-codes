@@ -19,14 +19,13 @@ int ciclo_3n1(int n, int cont)
 
 int range_3n1(int i, int j, int max)
 {
-
     int n;
 
     n = ciclo_3n1(j, 0);
 
     if (n > max)
         max = n;
-        
+
     if (j == i)
         return max;
 
