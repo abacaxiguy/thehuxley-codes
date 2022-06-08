@@ -25,7 +25,7 @@ int main()
 
     printf("%.2lf\n", total * (aliquota / 100));
     printf("%.2lf\n", (valor_final * TAXA_IMPORTACAO) + (total * (aliquota / 100)));
-    printf("%.2lf\n", total);
+    printf("%.2lf\n", valor_produto >= 2500 ? total + frete : total);
 
     valor_produto >= 2500 ? printf("Impostos calculados sem o frete") : printf("Impostos calculados com o frete");
 
