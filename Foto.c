@@ -3,48 +3,65 @@
 #include <math.h>
 #include <stdlib.h>
 
-int main() {
-    double p1, p2, p3, p4;
-    double primeiro, segundo, terceiro, quarto;
+double maior_do_array(double array[], int i, double max, int indice)
+{
+    if (i > 3) {
+        double temp;
+        temp = array[2];
+        array[2] = max;
+        array[indice] = temp;
+        return max;
+    };
 
-    scanf("%lf %lf %lf %lf", &p1, &p2, &p3, &p4);
-
-    if (p1 > p2 && p1 > p3 && p1 > p4) terceiro = p1;
-    else if (p2 > p1 && p2 > p3 && p2 > p4) terceiro = p2;
-    else if (p3 > p1 && p3 > p2 && p3 > p4) terceiro = p3;
-    else if (p4 > p1 && p4 > p2 && p4 > p3) terceiro = p4;
-
-    if (p1 < p2 && p1 < p3 && p1 < p4){
-        primeiro = p1;
-        p1 += p2 + p3 + p4 + 10; // Voc� agr � maior q todos
+    if (array[i] >= max){ 
+        max = array[i];
+        indice = i;
     }
-    else if (p2 < p1 && p2 < p3 && p2 < p4)
+
+    return maior_do_array(array, i + 1, max, indice);
+}
+
+void menor_do_array(double array[], int i, double min, int indice)
+{
+    if (i > 3)
     {
-        primeiro = p2;
-        p2 += p1 + p3 + p4 + 10; // Voc� agr � maior q todos
-    }
-    else if (p3 < p2 && p3 < p1 && p3 < p4)
-    {
-        primeiro = p3;
-        p3 += p2 + p1 + p4 + 10; // Voc� agr � maior q todos
-    }
-    else if (p4 < p2 && p4 < p3 && p4 < p1)
-    {
-        primeiro = p4;
-        p4 += p2 + p3 + p1 + 10; // Voc� agr � maior q todos
+        double temp;
+        temp = array[0];
+        array[0] = min;
+        array[indice] = temp;
+        return;
+    };
+
+    if (array[i] <= min){ 
+        min = array[i];
+        indice = i;
     }
 
-    if (p1 > primeiro && p1 < p2 && p1 < p3 && p1 < p4) quarto = p1;
-    else if (p2 > primeiro && p2 < p1 && p2 < p3 && p2 < p4) quarto = p2;
-    else if (p3 > primeiro && p3 < p2 && p3 < p1 && p3 < p4) quarto = p3;
-    else if (p4 > primeiro && p4 < p2 && p4 < p3 && p4 < p1) quarto = p4;
+    menor_do_array(array, i + 1, min, indice);
+}
 
-    if (p1 > primeiro && p1 > quarto && p1 < terceiro) segundo = p1;
-    else if (p2 > primeiro && p2 > quarto && p2 < terceiro) segundo = p2;
-    else if (p3 > primeiro && p3 > quarto && p3 < terceiro) segundo = p3;
-    else if (p4 > primeiro && p4 > quarto && p4 < terceiro) segundo = p4;
+int main()
+{
+    double familia[4];
+    double p0, p1, p2, p3, temp;
 
-    printf("%.2lf\n%.2lf\n%.2lf\n%.2lf", primeiro, segundo, terceiro, quarto);
+    scanf("%lf %lf %lf %lf", &p0, &p1, &p2, &p3);
+
+    familia[0] = p0;
+    familia[1] = p1;
+    familia[2] = p2;
+    familia[3] = p3;
+
+    temp = maior_do_array(familia, 0, 0, 0);
+    menor_do_array(familia, 0, temp, 0);
+
+    if (familia[3] > familia[1]) {
+        temp = familia[1];
+        familia[1] = familia[3];
+        familia[3] = temp;
+    }
+
+    printf("%.2lf\n%.2lf\n%.2lf\n%.2lf\n", familia[0], familia[1], familia[2], familia[3]);
 
     return 0;
 }
