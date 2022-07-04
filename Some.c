@@ -21,7 +21,7 @@ void fill_the_smallest_string(char smallest_string[], int max_size, char *string
 int main()
 {
     int soma = 0, tam_max = 0;
-    char m_str[500], n_str[500];
+    char m_str[10001], n_str[10001];
 
     char sum[tam_max];	
 
