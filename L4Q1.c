@@ -44,37 +44,32 @@ int main() {
 
         for (int j = 0; j < 3; j++) {
             for (int k = 0; k < 3; k++) {
-                scanf("%d", &golpe_luke[j][k]);
+                if (scanf("%d", &golpe_luke[j][k]) == EOF) i = 10;
             }
         }
 
         for (int j = 0; j < 3; j++) {
             for (int k = 0; k < 3; k++) {
-                scanf("%d", &golpe_vader[j][k]);
+                if (scanf("%d", &golpe_vader[j][k]) == EOF) i = 10;
             }
         }
 
-        if (!((diagonal_primaria(golpe_luke) && diagonal_secundaria(golpe_vader))) || !(diagonal_primaria(golpe_vader) && diagonal_secundaria(golpe_luke))){
-            if (diagonal_primaria(golpe_luke) || diagonal_secundaria(golpe_luke))
-                vader_vida -= 15;
-
-            if (diagonal_primaria(golpe_vader) || diagonal_secundaria(golpe_vader))
-                luke_vida -= 15;
-        }
+        if (diagonal_primaria(golpe_luke) && diagonal_secundaria(golpe_vader)) continue;
+        else if (diagonal_primaria(golpe_vader) && diagonal_secundaria(golpe_luke)) continue;
         
-        if (luke_vida <= 0 || vader_vida <= 0) {
-
-            if (luke_vida <= 0 && vader_vida <= 0) printf("Houve empate.\n");
-
-            else if (luke_vida <= 0) printf("Darth Vader venceu.\n");
-
-            else printf("Luke Skywalker venceu.\n");
-
-            return 0;
+        else {
+            if (diagonal_primaria(golpe_luke) || diagonal_secundaria(golpe_luke)) vader_vida -= 15;
+            if (diagonal_primaria(golpe_vader) || diagonal_secundaria(golpe_vader)) luke_vida -= 15;
         }
     }
 
-    printf("Houve empate.\n");
+    if (luke_vida <= 0 && vader_vida <= 0) printf("Houve empate.\n");
+
+    else if (luke_vida <= 0) printf("Darth Vader venceu.\n");
+
+    else if (vader_vida <= 0) printf("Luke Skywalker venceu.\n");
+
+    else printf("Houve empate.\n");
    
     return 0;
 }
