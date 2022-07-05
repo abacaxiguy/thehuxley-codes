@@ -5,11 +5,11 @@
 
 int main(){
     int operacao, i = 0;
-    int operacoes[100][2];
+    double operacoes[100][2];
 
     scanf("%d", &operacao);
 
-    while(operacao != -1){
+    while(operacao != -1 && i < 100){
         operacoes[i][0] = operacao;
 
         double valor;
