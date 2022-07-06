@@ -23,65 +23,56 @@ int main() {
 
     for (int i = 1; i <= n; i++) {
         int sudoku[9][9];
+        int valida = 1;
+        int regiao_c = 0, regiao_l = 0;
+
         for (int j = 0; j < 9; j++) {
             for (int k = 0; k < 9; k++) {
                 scanf("%d", &sudoku[j][k]);
             }
         }
 
-        int linha[9], coluna[9], regiao[9], contador = 0;
-        int flag = 1;
-
         for (int j = 0; j < 9; j++) {
+            int linha[9], coluna[9], regiao[9], contador = 0;
+
+            if (j % 3 == 0 && j != 0) regiao_l = 0;
+
+            if (j >= 6) regiao_c = 6;
+            else if (j >= 3) regiao_c = 3;
+            else regiao_c = 0;
+            
             for (int k = 0; k < 9; k++) {
                 linha[contador] = sudoku[j][k];
                 coluna[contador] = sudoku[k][j];
-                printf("%d ", coluna[contador]);
-                regiao[contador] = sudoku[(j/3)*3 + k/3][(k%3)*3 + j%3];
-
                 contador++;
+
+                if (k % 3 == 0 && k != 0) {
+                    regiao_c++;
+                    regiao_l -= 3;
+                }
+                regiao[k] = sudoku[regiao_c][regiao_l];
+                regiao_l++;
+
             }
 
-            printf("\n");
-        }
+            ordena(linha);
+            ordena(coluna);
+            ordena(regiao);
 
-
-        ordena(linha);
-        ordena(coluna);
-        ordena(regiao);
-
-        // for (int z = 0; z < 9; z++) {
-        //     printf("%d", linha[z]);
-        //     if (z != 8) {
-        //         printf(" ");
-        //     } else printf("\n");
-        // }
-
-        for (int z = 0; z < 9; z++) {
-            printf("%d", coluna[z]);
-            if (z != 8) {
-                printf(" ");
-            } else printf("\n");
-        }
-
-        // for (int z = 0; z < 9; z++) {
-        //     printf("%d", regiao[z]);
-        //     if (z != 8) {
-        //         printf(" ");
-        //     } else printf("\n");
-        // }
-
-        for (int j = 0; j < 9; j++) {
-            if (linha[j] != j+1 || coluna[j] != j+1 || regiao[j] != j+1) {
-                flag = 0;
-                break;
+            for (int j = 0; j < 9; j++) {
+                if (linha[j] != j+1 || coluna[j] != j+1 || regiao[j] != j+1) {
+                    valida = 0;
+                    break;
+                }
             }
         }
 
-        if (flag) {
+        if (valida) {
             printf("Instancia %d\nSIM\n", i);
         } else {
             printf("Instancia %d\nNAO\n", i);
         }
+
+        if (i != n) printf("\n");
     }
 }
