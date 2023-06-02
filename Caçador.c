@@ -33,8 +33,6 @@ void travel(char map[10][10], int i, int j, int *best, int runs_best, int n, int
     int got_stuck = 1;
     runs_best += loot(map[i][j]);
 
-    printf("(%d, %d) - %d\n", i, j, runs_best);
-
     prev[i][j] = 1;
 
     if (verify(map, i + 1, j, n, m, prev))
@@ -66,7 +64,6 @@ void travel(char map[10][10], int i, int j, int *best, int runs_best, int n, int
         if (runs_best > *best)
             *best = runs_best;
 
-        printf("over, best: %d\n", *best);
         return;
     }
 }
